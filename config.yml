@@ -1,0 +1,44 @@
+datasets:
+    svhn:
+        x: 32
+        y: 32
+        z: 3
+        n_train: 598388
+        n_test: 26032 
+        n_val: 6000
+        n: 630420
+        classes: 10
+        raw_path: data/raw/svhn
+        path: data/processed/svhn.pkl
+        url: http://ufldl.stanford.edu/housenumbers/
+    cifar10:
+        x: 32
+        y: 32
+        z: 3
+        n_train: 50000
+        n_val: 10000
+        n_test: 10000
+        n: 70000
+        classes: 10
+        path: data/processed/cifar10.pkl
+        folder_path: data/processed/cifar10/images
+        folder_path_labels: data/processed/cifar10/labels
+        raw_path: data/raw/cifar10
+        url: http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+    stl10:
+        x: 96
+        y: 96
+        z: 3
+        n: 113000
+        n_train: 101000
+        n_test: 8000
+        n_val: 4000
+        classes: 10
+        raw_path: data/raw/stl10
+        path: data/processed/stl10.pkl
+        imgfolder_path: data/processed/stl10
+        url: http://ai.stanford.edu/~acoates/stl10/stl10_binary.tar.gz
+experiments:
+    tensorboard_path: tensorboard/
+    results_path: results/
+    default_file: experiments.yml

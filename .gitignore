@@ -1,0 +1,10 @@
+/.env
+/config-private.yml
+.idea
+.gitkeep
+*.pyc
+
+/data
+/results
+/tensorboard
+.ipynb_checkpoints

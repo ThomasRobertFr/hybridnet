@@ -1,0 +1,52 @@
+config:
+  experiments:
+    tensorboard_path: tensorboard/
+    results_path: results/
+
+1_baseline-nostab-N_{N_sup}:
+  no_tf: true
+  job:
+    class: MeanTeacherHybrid
+    grid:
+      N_sup: [1000, 2000, 4000]
+  arch: cifar_shakeshake26_hybrid
+  lambda_consistency: 0
+  lambda_logit_dist: 0
+
+2_meanteacher-N_{N_sup}:
+  no_tf: true
+  job:
+    class: MeanTeacher
+    grid:
+      N_sup: [1000, 2000, 4000]
+  arch: cifar_shakeshake26
+
+3_hybrid_{N_sup}:
+  no_tf: true
+  job:
+    class: MeanTeacherHybrid
+    grid:
+      N_sup: [1000, 2000, 4000]
+  arch_options:
+    type: hybrid
+    pool_sup: stride
+    pool_unsup: stride
+    unpool_sup: stride
+    unpool_unsup: stride
+    common_enc: False
+    short_unsup: False
+  lr: 0.04
+  lambda_rec: 0.25
+  lambda_rec_inter: 0.5
+  batch_size: 80
+  labeled_batch_size: 19
+  epochs: 300
+  schedules:
+    lr: [
+      {"type": "cosine_down", "start": 0, "end": 210, "deactivate_after": 180},
+      {"type": "linear_down", "start": 180, "end": -1, "value_start": 3.e-3}
+    ]
+    lambda_rec : [{"type": "exp_up", "start": 0, "end": 5}, {"type": "cosine_down", "start": 0, "end": -1}]
+    lambda_consistency: {"type": "exp_up", "start": 0, "end": 5}
+    lambda_rec_inter: [{"type": "exp_up", "start": 0, "end": 2}, {"type": "cosine_down", "start": 0, "end": -1}]
+
